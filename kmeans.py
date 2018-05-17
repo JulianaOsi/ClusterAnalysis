@@ -1,7 +1,9 @@
-import matplotlib.animation as animation
 from fileWork import *
+from matplotlib import animation
+#import matplotlib.animation as animation
+from matplotlib.pyplot import *
 
-
+from elbowMethod import elbow_method
 
 dataset = load_data('data.txt')  # загрузка данных
 rows = len(dataset)  # кол-во строк в данных
@@ -36,6 +38,7 @@ x_centroid=[]
 y_centroid=[]
 
 slicing_centroids(centroids_history, x_centroid, y_centroid)
+
 
 fig=figure()
 def animate(i):
