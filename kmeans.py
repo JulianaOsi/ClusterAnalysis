@@ -1,6 +1,5 @@
 from fileWork import *
 from matplotlib import animation
-#import matplotlib.animation as animation
 from matplotlib.pyplot import *
 
 from elbowMethod import elbow_method
