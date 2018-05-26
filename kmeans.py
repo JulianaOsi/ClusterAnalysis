@@ -1,10 +1,9 @@
 from fileWork import *
 from matplotlib import animation
 from matplotlib.pyplot import *
+from sklearn.decomposition import PCA
 
-from elbowMethod import elbow_method
-
-dataset = load_data('atr.txt')  # загрузка данных
+dataset = load_data('data.txt')  # загрузка данных
 rows = len(dataset)  # кол-во строк в данных
 
 mas = min_max(dataset, rows)  # нахождение min и max данных
@@ -20,23 +19,29 @@ f.close()
 centroids_history=[]
 lables_history=[]
 
-#elbow_method(5, data_norm, centroids_history, lables_history, mas)
+#elbow_method(6, data_norm, centroids_history, lables_history, mas)
 
-last_lable=KMeans(1, data_norm, centroids_history, lables_history, mas)
+last_lable=KMeans(3, data_norm, centroids_history, lables_history, mas)
 
 #print(centroids_history)
 print(last_lable)
 #print(lables_history)
+#print(centroids_history)
 
-x_points = []
-y_points = []
+model_points = PCA(n_components=2)
+model_points.fit(data_norm)
+data_2D= model_points.transform(data_norm)
+x_points_2D=[]
+y_points_2D=[]
+slicing_points(data_2D, x_points_2D , y_points_2D )
 
-#slicing_points(data_norm, x_points, y_points)
 
-x_centroid=[]
-y_centroid=[]
-
-#slicing_centroids(centroids_history, x_centroid, y_centroid)
+#model_centroids = PCA(n_components=2)
+#model_centroids.fit(centroids_history)
+#centroids_2D=model_centroids.transform(centroids_history)
+#x_centroid_2D=[]
+#y_centroid_2D=[]
+#slicing_centroids(centroids_history, x_centroid_2D, y_centroid_2D)
 
 
 fig=figure()
@@ -46,19 +51,19 @@ def animate(i):
     ylabel('average of fans')
     xlabel('average of goals')
 
-    x_centers=[]
-    y_centers=[]
-    m = 0
-    for l in range(len(centroids_history[0])):
-        x_centers.append(x_centroid[j+m])
-        y_centers.append(y_centroid[j+m])
-        m+=1
+    #x_centers=[]
+    #y_centers=[]
+   # m = 0
+   # for l in range(len(centroids_history[0])):
+    #    x_centers.append(x_centroid_2D[j+m])
+     #   y_centers.append(y_centroid_2D[j+m])
+      #  m+=1
 
-    axes = gca()
-    axes.set_xlim([-0.0001, 0.005])
-    scatter(x_points, y_points, c=lables_history[i], cmap='rainbow',alpha=0.8)
-    scatter(x_centers, y_centers,s=80, marker='*', c='black')
+    #axes = gca()
+    #axes.set_xlim([-0.0001, 0.005])
+    scatter(x_points_2D, y_points_2D, c=lables_history[i],s=1, cmap='rainbow',alpha=0.8)
+    #scatter(x_centers, y_centers,s=80, marker='*', c='black')
 
 
-#anim = animation.FuncAnimation(fig,animate,frames=len(lables_history), interval=1000, repeat=False)
-#show()
+anim = animation.FuncAnimation(fig,animate,frames=len(lables_history), interval=1000, repeat=False)
+show()
