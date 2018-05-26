@@ -4,7 +4,7 @@ from matplotlib.pyplot import *
 
 from elbowMethod import elbow_method
 
-dataset = load_data('data.txt')  # загрузка данных
+dataset = load_data('atr.txt')  # загрузка данных
 rows = len(dataset)  # кол-во строк в данных
 
 mas = min_max(dataset, rows)  # нахождение min и max данных
@@ -20,9 +20,9 @@ f.close()
 centroids_history=[]
 lables_history=[]
 
-elbow_method(5, data_norm, centroids_history, lables_history, mas)
+#elbow_method(5, data_norm, centroids_history, lables_history, mas)
 
-last_lable=KMeans(2, data_norm, centroids_history, lables_history, mas)
+last_lable=KMeans(1, data_norm, centroids_history, lables_history, mas)
 
 #print(centroids_history)
 print(last_lable)
@@ -31,12 +31,12 @@ print(last_lable)
 x_points = []
 y_points = []
 
-slicing_points(data_norm, x_points, y_points)
+#slicing_points(data_norm, x_points, y_points)
 
 x_centroid=[]
 y_centroid=[]
 
-slicing_centroids(centroids_history, x_centroid, y_centroid)
+#slicing_centroids(centroids_history, x_centroid, y_centroid)
 
 
 fig=figure()
@@ -60,5 +60,5 @@ def animate(i):
     scatter(x_centers, y_centers,s=80, marker='*', c='black')
 
 
-anim = animation.FuncAnimation(fig,animate,frames=len(lables_history), interval=1000, repeat=False)
-show()
+#anim = animation.FuncAnimation(fig,animate,frames=len(lables_history), interval=1000, repeat=False)
+#show()
