@@ -1,5 +1,6 @@
 from math import sqrt
 from random import randint
+import linkedList
 
 def load_data(file_name):
     """Метод для загрузки данных из txt файла.
@@ -44,9 +45,9 @@ def normalization(data, min, max, rows, mas):
     массив данных
 
     """
-    data_norm = fillZero(rows, 2, mas)  # заполнение массива нулями
+    data_norm = fillZero(rows, 34, mas)  # заполнение массива нулями
     for i in range(rows):
-        for k in range(2):
+        for k in range(34):
             x = ((data[i][k] - min) / (max - min))
 
             data_norm[i][k] = float(x)
