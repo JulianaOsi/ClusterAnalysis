@@ -70,3 +70,4 @@ def animate(i):
 
 anim = animation.FuncAnimation(fig,animate,frames=len(lables_history), interval=1000, repeat=False)  # анимация графика
 show()  # показ графика
+

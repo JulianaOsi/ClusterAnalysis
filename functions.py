@@ -81,7 +81,7 @@ def distance(first, second):
 
 def randCenter(k, data_norm):
     """
-    Генерация случайных центройдов для каждого кластера
+    Выбор случайных центройдов для каждого кластера
     :param k: кол-во кластеров
     :param data_norm: матрица данных
     :return: координаты случайных цетройдов
@@ -112,7 +112,7 @@ def findLables(centroids, data_norm):
     for i in range(len(data_norm)):  # пробег по всем точкам
         distance_mas[i] = [distance(centroids[0], data_norm[i]), 0]  # расстояние от точки до первого центройда
         for j in range(len(centroids)):  # пробег по каждому центройду
-            dist = [distance(centroids[j], data_norm[i]), j]  # расстояние от каждого центройда до точки
+            dist = [distance(centroids[j], data_norm[i]), j]  # расстояние от каждого центройда до точки, индекс кластера
             if distance_mas[i][0] > dist[0]:  # нахождение наиболее близкого центройда к точке
                 distance_mas[i] = dist
     lables_mas = []
@@ -169,23 +169,24 @@ def slicing_points(data_norm, x_points, y_points):
     """
     Разделение координат Х и Y всех точек по разным массивам
     :param data_norm: матрица данных
-    :param x_points: пустой массив координат Х
-    :param y_points: пустой массив координат Y
+    :param x_points: пустой массив для записи координат Х
+    :param y_points: пустой массив для записи координат Y
     """
     for point in data_norm:
             x_points.append(point[0])  # добавление координаты X
             y_points.append(point[1])  # добавление координаты Y
 
-
+"""
 def slicing_centroids(centroids_history, x_centroid, y_centroid):
-    """
+    
     Разделение координат Х и У всех центройдов по разным массивам
     :param centroids_history: матрица истории координат центройдов
     :param x_centroid: пустой массив координат Х
     :param y_centroid: пустой массив координат Y
     :return:
-    """
+    
     for c in centroids_history:  # пробег по всем центройдам в истории
         for i in range(len(c)):  # пробег по каждой координате центройда
             x_centroid.append(c[i][0])  # добавление координаты X
             y_centroid.append(c[i][1])  # добавление координаты Y
+"""
