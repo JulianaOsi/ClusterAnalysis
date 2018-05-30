@@ -1,3 +1,6 @@
+"""
+Модуль исполняет функции других модулей.
+"""
 from functions import *
 from matplotlib import animation
 from matplotlib.pyplot import *
@@ -17,10 +20,10 @@ for i in range(len(data_norm)):  # пробег по всем строкам д�
     f.write(str(data_norm[i]))  # сохранение нормальных данных
 f.close()  # закрытие файла
 
-centroids_history = []  # массив истории центройдов
+centroids_history = []  # массив истории центроидов
 lables_history = []  # массив истории меток
 
-elbow_method(6, data_norm, centroids_history, lables_history)  # выполнение метода локтей
+elbow_method(6, data_norm, centroids_history, lables_history)  # выполнение локтевого метода
 
 last_lable = KMeans(3, data_norm, centroids_history, lables_history)  # выполнение алгоритма К-средних
 

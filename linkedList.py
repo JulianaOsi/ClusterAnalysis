@@ -1,85 +1,81 @@
 #класс Node для определения элемента списка
 class Node:
     def __init__(self, value = None, next = None):
-        self.value = value
-        self.next = next
+        self.value = value      #значение
+        self.next = next        #следующий элемент
 
+#класс LinkedList для определения списка
 class LinkedList:
     def __init__(self):
-        self.first = None
-        self.last = None
-        self.length = 0
+        self.first = None       #первый элемент
+        self.last = None        #последний элемент
+        self.length = 0         #длина списка
 
     def __str__(self):
-        if self.first != None:
-            current = self.first
-            out = 'LinkedList [\n' +str(current.value) +'\n'
-            while current.next != None:
-                current = current.next
-                out += str(current.value) + '\n'
-            return out + ']'
+        if self.first != None:          #проверка на пустой список
+            current = self.first        #выбор первого элемента
+            out = 'LinkedList [\n' +str(current.value) +'\n'    #вывод на печать первого элемента
+            while current.next != None: #перебор элементов списка
+                current = current.next  #перестановка позиции на следующий элемент
+                out += str(current.value) + '\n'    #добавление остальных элементов в переменную для вывода на печать
+            return out + ']'            #вывод на печать содержимого списка
         return 'LinkedList []'
 
-    def clear(self):
+    def clear(self):                    #удаление списка
         self.__init__()
 
 #добавление в конец списка
     def add(self, x):
-        self.length+=1
-        if self.first == None:
-            #self.first и self.last будут указывать на одну область памяти
-            self.last = self.first = Node(x, None)
+        self.length+=1      #переменная-счетчик размера массива
+        if self.first == None:  #если список пустой
+            self.last = self.first = Node(x, None)  #первый элемент будет началом и концом списка
         else:
-            #здесь, уже на разные, т.к. произошло присваивание
-            self.last.next = self.last = Node(x, None)
+            self.last.next = self.last = Node(x, None) #добавленный элемент становится последним
 
 #добавление в произвольное место
     def InsertNth(self,i,x):
-        if self.first == None:
-            self.last = self.first = Node(x, None)
+        if self.first == None:  #если список пустой
+            self.last = self.first = Node(x, None)  #первый элемент будет началом и концом списка
             return
         if i == 0:
-          self.first = Node(x,self.first)
+          self.first = Node(x,self.first)   #добавление в начало списка
           return
-        curr=self.first
-        count = 0
-        while curr != None:
-            count+=1
-            if count == i:
+        curr=self.first     #выбор первого элемента
+        count = 0           #счетчик пройденных элементов
+        while curr != None: #если не конец списка
+            count+=1        #увеличение счетчика
+            if count == i:  #если найдена нужная позиция
               curr.next = Node(x,curr.next)
-              if curr.next.next == None:
-                self.last = curr.next
+              if curr.next.next == None:#если элемент добавляется в конец
+                self.last = curr.next#присваивается указатель на конец
               break
-            curr = curr.next
+            curr = curr.next#переход на следуюший элемент
 
-#удаление элемента
+#получение значения элемента из произвольной позиции
+    def getValueNth(self, i):
+        curr=self.first             #выбор первого элемента
+        count = 0                   #счетчик пройденных элементов
+        while curr != None:         #проверка на окончание списка
+            count+=1                #увеличение счетчика
+            if count == i:          #если нужная позиция найдена
+                return curr.value   #возврат значения
+            curr = curr.next        #выбор следующего элемента
+
+#удаление элемента из произвольной позиции
     def Del(self,i):
-        if (self.first == None):
+        if (self.first == None):    #если список пустой
+          return                    #возвращает пустой список
+        curr = self.first           #выбор первого элемента
+        count = 0                   #счетчик пройденных элементов
+        if i == 0:                  #если удаляется первый элемент
+          self.first = self.first.next  #первым становится следующий элемент
           return
-        curr = self.first
-        count = 0
-        if i == 0:
-          self.first = self.first.next
-          return
-        while curr != None:
-            if count == i:
-              if curr.next == None:
-                self.last = curr
-              old.next = curr.next
+        while curr != None:         #пока список не кончится
+            if count == i:          #проверка на нужную позицию
+              if curr.next == None: #если удаляется последний элемент
+                self.last = curr    #последним становится предыдущий
+              old.next = curr.next  #изменение указателя на следующий элемент
               break
-            old = curr
-            curr = curr.next
-            count += 1
-
-#проверяем работу алгоритма
-#l=LinkedList()
-#for i in range(10):
-#    l.add(random.randint(0,10))
-
-#print(l)
-
-#l.InsertNth(3,100)
-#print(l)
-
-#l.Del(0)
-#print(l)
+            old = curr              #выбор предыдущего элемента
+            curr = curr.next        #переход к следующему элементу
+            count += 1              #увеличение счетчика

@@ -1,3 +1,7 @@
+"""
+Модуль состоит из функций, необходимых для реализации кластерного анализа.
+Также содержится функция кластеризации методом k-средних.
+"""
 from math import sqrt
 from random import randint
 import linkedList
@@ -81,18 +85,18 @@ def distance(first, second):
 
 def randCenter(k, data_norm):
     """
-    Выбор случайных центройдов для каждого кластера
+    Выбор случайных центроидов для каждого кластера
     :param k: кол-во кластеров
     :param data_norm: матрица данных
-    :return: координаты случайных цетройдов
+    :return: координаты случайных цетроидов
     """
-    coordinates = []  # массив координат случайных центройдов
+    coordinates = []  # массив координат случайных центроидов
     rang = len(data_norm)  # кол-во строк в матрице данных
     use = set()  # создание множества использованных чисел
     rand = randint(0, rang - 1)  # генерация рандомного числа
     for i in range(k):  # пробег цикла от 1 до кол-ва кластеров
         use.add(rand)   # добавление использованного числа в множество
-        coordinates.append(data_norm[rand])  # добавление координат центройда в список
+        coordinates.append(data_norm[rand])  # добавление координат центроида в список
         rand = randint(0, rang - 1)
         while rand in use:  # проверка числа на нахождение во множестве использованных
             rand = randint(0, rang - 1)
@@ -102,34 +106,34 @@ def randCenter(k, data_norm):
 def findLables(centroids, data_norm):
     """
     Определение меток точек (принадлежность точек к кластерам)
-    :param centroids: массив центройдов каждого кластера
+    :param centroids: массив центроидов каждого кластера
     :param data_norm: матрица данных
     :return: массив меток
 
-    distance_mas - массив расстяний от каждой точки к ближайшему ей центройду
+    distance_mas - массив расстяний от каждой точки к ближайшему ей центроиду
     """
     distance_mas = fillZero(len(data_norm), 2)  # заполнение массива расстояний нулями
     for i in range(len(data_norm)):  # пробег по всем точкам
-        distance_mas[i] = [distance(centroids[0], data_norm[i]), 0]  # расстояние от точки до первого центройда
-        for j in range(len(centroids)):  # пробег по каждому центройду
-            dist = [distance(centroids[j], data_norm[i]), j]  # расстояние от каждого центройда до точки, индекс кластера
-            if distance_mas[i][0] > dist[0]:  # нахождение наиболее близкого центройда к точке
+        distance_mas[i] = [distance(centroids[0], data_norm[i]), 0]  # расстояние от точки до первого центроида
+        for j in range(len(centroids)):  # пробег по каждому центроиду
+            dist = [distance(centroids[j], data_norm[i]), j]  # расстояние от каждого центроида до точки, индекс кластера
+            if distance_mas[i][0] > dist[0]:  # нахождение наиболее близкого центроида к точке
                 distance_mas[i] = dist
     lables_mas = []
     for i in distance_mas:  # пробег по массиву расстояний
-        lables_mas.append(i[1])  # заполнение массива меток индексами ближайших центройдов
+        lables_mas.append(i[1])  # заполнение массива меток индексами ближайших центроидов
     return lables_mas
 
 
 def findCenter(lables, k, data_norm):
     """
-    Вычисление новых центройдов
+    Вычисление новых центроидов
     :param lables: массив принадлежности точек к кластерам
     :param k: кол-во кластеров
     :param data_norm: матрица данных
-    :return: массив координат новых центройдов
+    :return: массив координат новых центроидов
     """
-    coordinates = []  # массив координат новых центройдов
+    coordinates = []  # массив координат новых центроидов
     for i in range(k):  # пробег по всем кластерам
         sumx = 0
         sumy = 0
@@ -148,17 +152,17 @@ def KMeans(k, data_norm, centroids_history, lables_history):
     Выполнение алгоритма K-средних
     :param k: кол-во кластеров
     :param data_norm: матрица данных
-    :param centroids_history: массив истории координат центройдов
+    :param centroids_history: массив истории координат центроидов
     :param lables_history: массив истории меток точек
     :return: итоговый массив меток (принадлежности точек к кластерам)
     """
-    centroids = randCenter(k, data_norm)  # нахождение случайных центройдов
-    centroids_history.append(centroids)  # добавление случайных центройдов в историю
+    centroids = randCenter(k, data_norm)  # нахождение случайных центроидов
+    centroids_history.append(centroids)  # добавление случайных центроидов в историю
     actual_lable = findLables(centroids, data_norm)  # вычисление актуального массива меток
     lables_history.append(actual_lable)  # добавление массива актуальных меток в историю
-    while not (findCenter(actual_lable, k, data_norm) == centroids):  # пока новые центройды не совпадают с предыдущими
-        centroids = findCenter(actual_lable, k, data_norm)  # нахождение новых центройдов
-        centroids_history.append(centroids)  # добавление новых центройдов в историю
+    while not (findCenter(actual_lable, k, data_norm) == centroids):  # пока новые центроиды не совпадают с предыдущими
+        centroids = findCenter(actual_lable, k, data_norm)  # нахождение новых центроидов
+        centroids_history.append(centroids)  # добавление новых центроидов в историю
         actual_lable = findLables(centroids, data_norm)  # вычисление актуального массива меток
         lables_history.append(actual_lable)  # добавление актуальных меток в историю
 
@@ -179,14 +183,14 @@ def slicing_points(data_norm, x_points, y_points):
 """
 def slicing_centroids(centroids_history, x_centroid, y_centroid):
     
-    Разделение координат Х и У всех центройдов по разным массивам
-    :param centroids_history: матрица истории координат центройдов
+    Разделение координат Х и У всех центроидов по разным массивам
+    :param centroids_history: матрица истории координат центроидов
     :param x_centroid: пустой массив координат Х
     :param y_centroid: пустой массив координат Y
     :return:
     
-    for c in centroids_history:  # пробег по всем центройдам в истории
-        for i in range(len(c)):  # пробег по каждой координате центройда
+    for c in centroids_history:  # пробег по всем центроидам в истории
+        for i in range(len(c)):  # пробег по каждой координате центроида
             x_centroid.append(c[i][0])  # добавление координаты X
             y_centroid.append(c[i][1])  # добавление координаты Y
 """
