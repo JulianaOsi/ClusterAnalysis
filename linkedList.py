@@ -1,17 +1,29 @@
 #класс Node для определения элемента списка
 class Node:
     def __init__(self, value = None, next = None):
+        """
+        Инициализация элемента списка
+        :param value: значение в элементе списка
+        :param next: указатель на следующий элемент
+        """
         self.value = value      #значение
         self.next = next        #следующий элемент
 
 #класс LinkedList для определения списка
 class LinkedList:
     def __init__(self):
+        """
+        Инициализация списка
+        """
         self.first = None       #первый элемент
         self.last = None        #последний элемент
         self.length = 0         #длина списка
 
     def __str__(self):
+        """
+        Вывод списка на печать
+        :return: строка из элементов списка
+        """
         if self.first != None:          #проверка на пустой список
             current = self.first        #выбор первого элемента
             out = 'LinkedList [\n' +str(current.value) +'\n'    #вывод на печать первого элемента
@@ -21,19 +33,29 @@ class LinkedList:
             return out + ']'            #вывод на печать содержимого списка
         return 'LinkedList []'
 
-    def clear(self):                    #удаление списка
+    def clear(self):
+        """
+        Удаление списка
+        """
         self.__init__()
 
-#добавление в конец списка
     def add(self, x):
+        """
+        добавление в конец списка
+        :param x: значение, которое будет храниться в элементе
+        """
         self.length+=1      #переменная-счетчик размера массива
         if self.first == None:  #если список пустой
             self.last = self.first = Node(x, None)  #первый элемент будет началом и концом списка
         else:
             self.last.next = self.last = Node(x, None) #добавленный элемент становится последним
 
-#добавление в произвольное место
     def InsertNth(self,i,x):
+        """
+        добавление в произвольное место
+        :param i: позиция в списке
+        :param x: значение, которое будет храниться в элементе
+        """
         if self.first == None:  #если список пустой
             self.last = self.first = Node(x, None)  #первый элемент будет началом и концом списка
             return
@@ -51,8 +73,12 @@ class LinkedList:
               break
             curr = curr.next#переход на следуюший элемент
 
-#получение значения элемента из произвольной позиции
     def getValueNth(self, i):
+        """
+        Возвращает значение элемента, стоящего на выбранной позиции
+        :param i: позиция в списке
+        :return: значение элемента
+        """
         curr=self.first             #выбор первого элемента
         count = 0                   #счетчик пройденных элементов
         while curr != None:         #проверка на окончание списка
@@ -61,8 +87,11 @@ class LinkedList:
                 return curr.value   #возврат значения
             curr = curr.next        #выбор следующего элемента
 
-#удаление элемента из произвольной позиции
     def Del(self,i):
+        """
+        Удаляет элемент списка из выбранной позиции
+        :param i: позиция в списке
+        """
         if (self.first == None):    #если список пустой
           return                    #возвращает пустой список
         curr = self.first           #выбор первого элемента
