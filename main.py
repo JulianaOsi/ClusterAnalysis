@@ -27,10 +27,8 @@ elbow_method(6, data_norm, centroids_history, lables_history)  # выполне�
 
 last_lable = KMeans(3, data_norm, centroids_history, lables_history)  # выполнение алгоритма К-средних
 
-#print(centroids_history)
-print(last_lable)
-#print(lables_history)
-#print(centroids_history)
+
+print(last_lable)  # печать меток
 
 
 """
@@ -50,25 +48,7 @@ fig = figure()  #создание окна для графика
 
 def animate(i):
     clf()  # очищение графика
-    #j=i*2
-    ylabel('name')  # название оси Y
-    xlabel('name')  # название оси X
-
-    """
-    #x_centers=[]
-    #y_centers=[]
-   # m = 0
-   # for l in range(len(centroids_history[0])):
-    #    x_centers.append(x_centroid_2D[j+m])
-     #   y_centers.append(y_centroid_2D[j+m])
-      #  m+=1
-
-    #axes = gca()
-    #axes.set_xlim([-0.0001, 0.005])
-    """
-
     scatter(x_points_2D, y_points_2D, c=lables_history[i],s=1, cmap='rainbow',alpha=0.8)  # построение графика точек
-    #scatter(x_centers, y_centers,s=80, marker='*', c='black')
 
 
 anim = animation.FuncAnimation(fig,animate,frames=len(lables_history), interval=1000, repeat=False)  # анимация графика

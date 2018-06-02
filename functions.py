@@ -180,17 +180,3 @@ def slicing_points(data_norm, x_points, y_points):
             x_points.append(point[0])  # добавление координаты X
             y_points.append(point[1])  # добавление координаты Y
 
-"""
-def slicing_centroids(centroids_history, x_centroid, y_centroid):
-    
-    Разделение координат Х и У всех центроидов по разным массивам
-    :param centroids_history: матрица истории координат центроидов
-    :param x_centroid: пустой массив координат Х
-    :param y_centroid: пустой массив координат Y
-    :return:
-    
-    for c in centroids_history:  # пробег по всем центроидам в истории
-        for i in range(len(c)):  # пробег по каждой координате центроида
-            x_centroid.append(c[i][0])  # добавление координаты X
-            y_centroid.append(c[i][1])  # добавление координаты Y
-"""
